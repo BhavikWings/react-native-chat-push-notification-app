@@ -4,16 +4,18 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "ios": "react-native run-ios --simulator=\"iPhone 13\"",
+    "iPhone_12": "react-native run-ios --device \"iPhone 12\"",
     "start": "react-native start",
+    "bundle-ios": "react-native bundle --entry-file ./index.js --platform ios --bundle-output ios/main.jsbundle --assets-dest ios",
     "test": "jest",
     "lint": "eslint ."
   },
   "dependencies": {
-    "@cometchat-pro/react-native-calls": "^1.0.3",
-    "@cometchat-pro/react-native-chat": "2.1.5",
+    "@cometchat-pro/react-native-calls": "^2.1.1",
+    "@cometchat-pro/react-native-chat": "^3.0.8",
     "@notifee/react-native": "^0.15.2",
-    "@react-native-community/async-storage": "^1.12.1",
+    "@react-native-async-storage/async-storage": "^1.17.7",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-firebase/app": "^10.1.0",
     "@react-native-firebase/messaging": "^10.1.1",

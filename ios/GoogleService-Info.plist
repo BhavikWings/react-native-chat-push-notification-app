@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>608314425950-3b9r2cjp8662llj3evqrjs5jmphufid2.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.608314425950-3b9r2cjp8662llj3evqrjs5jmphufid2</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAGa_ZhwsEb2gODUDGVvd_72M8hkCxdFHI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>608314425950</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>app.wardo</string>
+	<key>PROJECT_ID</key>
+	<string>rn-exampleapp</string>
+	<key>STORAGE_BUCKET</key>
+	<string>rn-exampleapp.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:608314425950:ios:d3b440657a4d4207536acf</string>
+	<key>DATABASE_URL</key>
+	<string>https://rn-exampleapp-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

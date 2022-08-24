@@ -5,6 +5,9 @@ import {CometChat} from '@cometchat-pro/react-native-chat';
 import * as ImagePicker from 'react-native-image-picker';
 import {CommonActions} from '@react-navigation/native';
 import localStyles from '@home/HomeStyles';
+import messaging from '@react-native-firebase/messaging';
+import notifee from '@notifee/react-native';
+
 export default function Home({navigation, route}) {
   const [uid, setUid] = useState('');
   const [message, setMessage] = useState('');
@@ -13,7 +16,46 @@ export default function Home({navigation, route}) {
 
   useEffect(() => {
     checkExtension();
+
+    messaging().onMessage(async (remoteMessage) => {
+      console.log('message received', remoteMessage);
+      console.log({
+        title: remoteMessage.data.title,
+        body: remoteMessage.data.alert,
+      });
+      let isIOS = Platform.OS === 'ios';
+      if (isIOS) {
+        await notifee.displayNotification({
+          title: remoteMessage.data.title,
+          body: remoteMessage.data.alert,
+          ios: {
+            foregroundPresentationOptions: {
+              critical: true,
+              alert: true,
+              badge: true,
+              sound: true,
+            },
+          },
+        });
+      } else {
+        console.log('android');
+        const channelId = await notifee.createChannel({
+          id: 'default',
+          name: 'Default Channel',
+        });
+        let result = await notifee.displayNotification({
+          title: remoteMessage.data.title,
+          body: remoteMessage.data.alert,
+          android: {
+            channelId,
+          },
+        });
+        console.log(result);
+      }
+    });
   });
+
+  
 
   const checkExtension = async () => {
     const setting = await CometChat.getAppSettings();
@@ -21,7 +63,7 @@ export default function Home({navigation, route}) {
       (ext) => ext.id === 'push-notification',
     );
 
-    console.log('extension:', extension);
+    console.log(`**** Extension userName: ${userName}`, extension);
   };
   const sendMessage = () => {
     if (!uid) {
@@ -40,7 +82,7 @@ export default function Home({navigation, route}) {
 
     CometChat.sendMessage(textMessage).then(
       (message) => {
-        console.log('message', message);
+        console.log('Send message:', message);
         alert('sent Successfully');
       },
       (error) => {

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Image, TouchableOpacity, Platform} from 'react-native';
 import {Input, Button} from 'react-native-elements';
 import {CometChat} from '@cometchat-pro/react-native-chat';
@@ -7,9 +7,12 @@ import notifee from '@notifee/react-native';
 import {CommonActions} from '@react-navigation/native';
 import localStyles from '@login/LoginStyles';
 import {appID, authKey, appRegion} from '@resources/Constants';
+
 export default function Login({navigation, routes}) {
+  const [userId, setUserId] = useState('');
+
   useEffect(() => {
-    messaging().onMessage(async (remoteMessage) => {
+   /*messaging().onMessage(async (remoteMessage) => {
       console.log('message received', remoteMessage);
       console.log({
         title: remoteMessage.data.title,
@@ -44,7 +47,7 @@ export default function Login({navigation, routes}) {
         });
         console.log(result);
       }
-    });
+    });*/
     let cometChatSettings = new CometChat.AppSettingsBuilder()
       .subscribePresenceForAllUsers()
       .setRegion(appRegion)
@@ -84,6 +87,11 @@ export default function Login({navigation, routes}) {
   };
 
   const login = (uid) => {
+    console.log('Trying login with:', uid);
+    if (uid == '') {
+      console.log('Please add your user ud', uid);
+      return;
+    }
     CometChat.login(uid, authKey).then(
       (User) => {
         console.log('Login Successful:', {User});
@@ -119,7 +127,7 @@ export default function Login({navigation, routes}) {
         </Text>
         <View style={localStyles.userListContainer}>
           <TouchableOpacity
-            onPress={() => login('SUPERHERO1')}
+            onPress={() => login('cns571')}
             style={localStyles.userContainer}>
             <Image
               style={localStyles.userIcon}
@@ -129,7 +137,7 @@ export default function Login({navigation, routes}) {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => login('SUPERHERO2')}
+            onPress={() => login('cns510')}
             style={localStyles.userContainer}>
             <Image
               style={localStyles.userIcon}
@@ -162,11 +170,14 @@ export default function Login({navigation, routes}) {
         <Input
           style={localStyles.inputStyles}
           placeholder={'or else continue login with uid'}
+          value={userId}
+          onChange={(v) => setUserId(v)}
         />
         <Button
           buttonStyle={localStyles.buttonStyle}
           titleStyle={localStyles.buttonTextStyle}
           title={'LOGIN USING UID'}
+          onPress={() => login(userId)}
         />
       </View>
     </View>
